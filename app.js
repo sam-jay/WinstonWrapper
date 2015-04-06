@@ -12,21 +12,22 @@
   app.listen(config.port);
   console.log("Listening on port: " + config.port);
 
-  var SNS_KEY_ID = process.env['SNS_KEY_ID'],
-  SNS_ACCESS_KEY = process.env['SNS_ACCESS_KEY'];
-
   var sns = new aws.SNS({
-    region: 'us-east-1',
-    accessKeyId: SNS_ACCESS_KEY,
-    secretAccessKey: SNS_KEY_ID
+	region: 'us-east-1',
+        accessKeyId: '***',
+        secretAccessKey: '***'
   });
 
   app.post('/logger/event', function(req, res){
     if (!req.body) return res.sendStatus(400);
     console.log(req.body);
-    sns.publish({Message: req.body.data}, function(err, res){
+    var params = {
+        TargetArn: '***',
+	Message: req.body.data};
+  
+  sns.publish(params, function(err, data){
         if (err) console.log(err, err.stack);
-        else console.log(req.body.data);
+        else console.log(data);
   });
 });
 
