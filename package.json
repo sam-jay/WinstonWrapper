@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/sam-jay/WinstonWrapper/issues"
   },
-  "homepage": "https://github.com/sam-jay/WinstonWrapper"
+  "homepage": "https://github.com/sam-jay/WinstonWrapper",
+  "dependencies": {
+    "body-parser": "~1.12.2",
+    "express": "~4.12.3"
+  }
 }
