@@ -12,17 +12,8 @@
   app.listen(config.port);
   console.log("Listening on port: " + config.port);
 
-  var sns = new aws.SNS({
-	region: 'us-east-1',
-        accessKeyId: '***',
-        secretAccessKey: '***'
-  });
-
-  var sqs = new aws.SQS({
-        region: 'us-east-1',
-        accessKeyId: 'AKIAIQR5YY4RG3BJFDSQ',
-        secretAccessKey: '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',
-  });
+  var sns = config.sns;
+  var sqs = config.sqs;
 
   app.post('/logger/event', function(req, res){
     console.log('got new event')
