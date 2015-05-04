@@ -20,22 +20,22 @@
     if (!req.body) return res.sendStatus(400);
     console.log(req.body);
 
-    var params = {
-        TargetArn: 'arn:aws:sns:us-east-1:216982984213:winston',
-	       Message: req.body.data};
 
   if (req.body.priority === 'high'){
-	  sns.publish(params, function(err, data){
-		if (err) console.log(err, err.stack);
-		else console.log(data);
+	  sns.publish({
+      TargetArn: 'arn:aws:sns:us-west-2:191148048684:winston_sns',
+      Message: JSON.stringify(req.body.data)
+    }, function(err, data){
+  		if (err) console.log(err, err.stack);
+  		else console.log(data);
 	  });
   }
-  else{
-	var params = {
-	QueueUrl: 'https://sqs.us-west-2.amazonaws.com/191148048684/winston',
-	MessageBody: JSON.stringify(req.body.data)};
+  else {
 
-	sqs.sendMessage(params, function(err,data){
+	sqs.sendMessage({
+    QueueUrl: 'https://sqs.us-west-2.amazonaws.com/191148048684/winston',
+    MessageBody: JSON.stringify(req.body.data)
+  }, function(err,data){
 		if(!err) {
       console.log('Message sent.');
       res.status(200).send();
